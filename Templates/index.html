@@ -1,0 +1,317 @@
+<html>
+<head>
+<title>Bug Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Bug Tracker & Button -->
+    <h2 class="meadowBack"> <img src="https://i.postimg.cc/8PbbfJJ6/bug-nest-img.gif" height="210px" width="210px"></h2>
+    <h2 class="header" >
+        Number of Bugs: <span id="bugs">0</span><br></h2>
+    <h5 class="header">Max Bugs: <span id="maxBugs">100</span></h5>
+       
+     <!-- Resource Tracker -->
+    <h3 class="forest margin"><u>Resources:</u></h3>
+    <p class="subHeader"> 
+        Food - <span id="numFood">20</span> (Max: <span id="maxFood">20</span>) | Sticks - <span id="numSticks">3</span> (Max: <span id="maxSticks">20</span>) 
+    </p>
+    <p class="forest">
+        Food/sec Consumed: <span id="foodConRate">0</span>
+        <br> Food/sec Produced: <span id="foodProRate">0</span>
+        <br> Sticks/sec Produced: <span id="stickProRate">0</span>
+    </p>
+    <button class="button" type="button" onclick="buttonAdder(1)">
+        +1 Food Bug &nbsp;[Cost: <span id="bugCost">1</span> Food]  
+        </button><br>
+    <!-- Bug Assignment -->
+    <p class="forest">
+        Food Gathering: <span id="foodBugs">0</span> Bugs <br>
+        Stick Gathering: <span id="stickBugs">0</span> Bugs 
+        <button class="button" style="line-height:0.7" style="margin-bottom:0" type="button" onclick="stickBugManage(1)">
+            <span id="stickBugAdd">↑</span> 
+            </button>
+        <button class="button" style="line-height:0.7" style="margin-bottom:0" type="button" onclick="stickBugManage(-1)">
+            <span id="stickBugSub">↓</span> 
+            </button>
+    </p> <br>
+    
+    <!-- Nest Construction Menu -->
+    <h3 class="forest"><u>Nest Construction:</u></h3>
+    <p class="subHeader">Nest Progress: <span id="nestProg">0</span>%</p>
+    <h4 class="forest">Food Storage Sections: <span id="foodSto">1</span></h4>
+        <button class="button" type="button" onclick="makeFoodSto(1)">
+        <span id="foodStoCost">10</span> sticks 
+        </button><br>
+        <button class="button" type="button" onclick="adder(1)">
+            Deconstruct
+        </button>
+    <h4 class="forest">Stick Storage Sections: <span id="stickSto">1</span></h4>
+        <button class="button" type="button" onclick="makeStickSto(1)">
+        <span id="stickStoCost">10</span> sticks
+        </button> <br>
+        <button class="button" type="button" onclick="adder(1)">
+            Deconstruct
+        </button>
+    <h4 class="forest">Hive Space: <span id="hiveSpace">1</span></h4>
+        <button class="button" type="button" onclick="makeHiveSpace(1)">
+        <span id="hiveSpaceCost">50</span> sticks
+        </button> <br>
+        <button class="button" type="button" onclick="adder(1)">
+            Deconstruct
+        </button>
+    <h4 class="forest">Nurseries: <span id="nurseries">0</span></h4>
+        <button class="button" type="button" onclick="makeNursery(1)">
+        <span id="nurseryCost">30</span> sticks
+        </button><br>
+        <button class="button" type="button" onclick="adder(1)">
+        Deconstruct
+        </button>
+    
+
+
+
+<script>
+    //Flags
+    var foodBugsFlag = 0;
+    var stickBugsFlag = 0;
+    var bugsFlag = 0;
+    var stageFlag = 0;
+    var foodFlag = 0;
+    var nurseriesFlag = 0;
+    //Global Variables
+    var numBugs = 0;
+    var foodBugs = 0;
+    var stickBugs = 0;
+    var bugCost = 1;
+    //
+    var maxBugs = 100;
+    var numFood = 20;
+    var maxFood = 20;
+    var numSticks = 40;
+    var maxSticks = 20;
+    //figure out your rates
+    var foodConRate = 0;
+    var foodConRateID;
+    var foodProRate = 0;
+    var foodProRateID;
+    var stickProRate = 0;
+    var stickProRateID;
+    var nurseryRate = 0;
+    var nurseryRateID;
+    //
+    var nestProg = 0;
+    //
+    var foodSto = 1;
+    var stickSto = 1;
+    var foodStoCost = 10;
+    var stickStoCost = 10;
+    var hiveSpace = 1;
+    var hiveSpaceCost = 50; 
+    var nurseries = 0;
+    var nurseryCost = 30;
+
+    ///Main Update Loop
+    var ticks = 0;
+    window.setInterval(function(){
+    updateBools();
+    clickerSet();
+    update();
+    ticks+=1;
+
+    }, 10);
+
+//Functions start here:
+
+    function adder(number) {
+        numBugs+=number;
+        foodBugs+=number;
+        if(foodBugsFlag==0){
+           foodBugsFlag=1;
+        }
+        if(bugsFlag == 0){
+            bugsFlag=1;
+        }
+    }
+    // ^^^ Not really used. Main functionality is tests. 
+
+
+    //Managing Food, Sticks, Bugs, & Their Clickers:
+
+    function addFood(number){
+        if (numFood<=(maxFood-number)){
+            numFood+=number;
+        }
+    }
+    function subFood(number){
+        if ((numFood-number>=0)){
+            numFood-=number;
+        }
+        else{
+            numFood=0;
+        }
+    }
+    function addStick(number){
+        if (numSticks<=(maxSticks-number)){
+            numSticks+=number;
+        }
+    }
+
+    function buttonAdder(number) {
+        if((numFood>=number) && (numBugs+number<=maxBugs)){
+            numBugs+=1;
+            foodBugs+=1;
+            subFood(number);
+            if(foodBugsFlag==0){
+                foodBugsFlag=1;
+            }
+            if(bugsFlag == 0){
+                bugsFlag=1;
+            }
+            //decide if you want to increment the bug production cost
+        }
+    }
+
+    function stickBugManage(number){
+        if(number>0){
+            if(foodBugs-number>=0){
+                stickBugs+=number;
+                foodBugs-=number;}
+            if(stickBugsFlag==0){
+                stickBugsFlag=1;
+            }
+        }else if(number<0){
+            if(stickBugs+number>=0){
+                stickBugs+=number;
+                foodBugs-=number;
+                if(foodBugsFlag == 0){
+                    foodBugsFlag =1;
+                }
+            }
+        }
+    }
+
+    function clickerSet(){
+        if (foodBugsFlag == 1){
+            clearInterval(foodProRateID);
+            foodProRate = 5000-(85*foodBugs);
+            foodProRateID = window.setInterval(function(){addFood(1);foodBugsFlag =1;}, foodProRate);
+            foodBugsFlag = 2;
+        }else if(foodBugsFlag ==0){clearInterval(foodProRateID);}
+
+        if (bugsFlag == 1){
+            clearInterval(foodConRateID);
+            foodConRate = 7000-numBugs;
+            foodConRateID = window.setInterval(function(){subFood(1); bugsFlag =1;}, foodConRate);
+            bugsFlag = 2;
+        }else if(bugsFlag == 0){clearInterval(foodConRateID);}
+
+        if(stickBugsFlag == 1){
+            clearInterval(stickProRateID);
+            stickProRate = 5000-(85*stickBugs);
+            stickProRateID = window.setInterval(function(){addStick(1);stickBugsFlag =1;}, stickProRate);
+            stickBugsFlag = 2;
+        }else if(stickBugsFlag == 0){clearInterval(stickProRateID);}
+
+        if (nurseriesFlag == 1){
+            clearInterval(nurseryRateID);
+            nurseryRate = 10000-(85*nurseries);
+            nurseryRateID = window.setInterval(function(){buttonAdder(1);nurseriesFlag =1;}, nurseryRate);
+            nurseriesFlag = 2;
+        }else if(nurseriesFlag ==0){clearInterval(nurseryRateID);}
+        
+    }
+    
+    
+    //Flag Checker(? idk what to call it)
+
+    function updateBools(){
+        if (foodBugs==0) {
+            foodBugsFlag = 0;
+        } 
+        if (numBugs == 0){
+            bugsFlag = 0;
+        }
+        if (stickBugs == 0){
+            stickBugsFlag = 0;
+        }
+        if (nurseries == 0){
+            nurseriesFlag = 0;
+        }
+
+    }
+    //Nest Construction Functions:
+    function makeFoodSto(number){
+        if (numSticks-foodStoCost*number>=0){
+            numSticks-=foodStoCost*number;
+            foodSto+=number;
+            maxFood+=20*number;
+        }
+    }
+    function makeStickSto(number){
+        if (numSticks-stickStoCost*number>=0){
+            numSticks-=stickStoCost*number;
+            stickSto+=number;
+            maxSticks+=20*number;
+        }
+    }
+    function makeHiveSpace(number){
+        if (numSticks-hiveSpaceCost*number>=0){
+            numSticks-=hiveSpaceCost*number;
+            hiveSpace+=number;
+            maxBugs+=50*number;
+        }
+    }
+    function makeNursery(number){
+        if (numSticks-nurseryCost*number>=0){
+            numSticks-=nurseryCost*number;
+            nurseries+=number;
+            if(nurseriesFlag == 0){
+                nurseriesFlag =1;
+            }
+        }
+    }
+
+    //Update Variables in HTML:
+
+    //if something ain't working check if you spelled something wrong lmfao it's happened too many times...
+    function update(){
+        document.getElementById("numFood").innerHTML = numFood;
+        document.getElementById("numSticks").innerHTML = numSticks;
+    
+        document.getElementById("bugCost").innerHTML = bugCost;
+        if(foodProRate!=0){document.getElementById("foodProRate").innerHTML = ((foodProRate/1000)**-1).toFixed(2);}
+        else{document.getElementById("foodProRate").innerHTML = 0;}
+        if(foodBugs==0){document.getElementById("foodProRate").innerHTML = 0;}
+        if(foodConRate!=0){document.getElementById("foodConRate").innerHTML = ((foodConRate/1000)**-1).toFixed(2);}
+        else{document.getElementById("foodConRate").innerHTML = 0;}
+        if(stickProRate!=0){document.getElementById("stickProRate").innerHTML = ((stickProRate/1000)**-1).toFixed(2);}
+        else{document.getElementById("stickProRate").innerHTML = 0;}
+        if(stickBugs==0){document.getElementById("stickProRate").innerHTML = 0;}
+        if(numBugs==0){document.getElementById("foodConRate").innerHTML = 0}
+        //do we even change bug cost?
+        document.getElementById("foodBugs").innerHTML = foodBugs;
+        document.getElementById("stickBugs").innerHTML = stickBugs;
+        document.getElementById("maxBugs").innerHTML = maxBugs;
+        document.getElementById("maxFood").innerHTML = maxFood;
+        document.getElementById("maxSticks").innerHTML = maxSticks;
+      
+       
+        document.getElementById("nestProg").innerHTML = nestProg;
+        document.getElementById("foodSto").innerHTML = foodSto;
+        document.getElementById("stickSto").innerHTML = stickSto;
+        document.getElementById("foodStoCost").innerHTML = foodStoCost;
+        document.getElementById("stickStoCost").innerHTML = stickStoCost;
+        document.getElementById("hiveSpace").innerHTML = hiveSpace;
+        document.getElementById("hiveSpaceCost").innerHTML = hiveSpaceCost;
+        document.getElementById("nurseries").innerHTML = nurseries;
+        document.getElementById("nurseryCost").innerHTML = nurseryCost;
+
+        document.getElementById("bugs").innerHTML = numBugs;
+    }
+
+
+</script>
+</body>
+</html>
