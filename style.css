@@ -4,8 +4,9 @@
     --darkGreen: #29471c;
     --dark: #17191D;
     --light: #f4f4f4;
-    --brown: #5e422a;
-    --lightBrown: #7c593a;
+    --darkBrown: #5e422a;
+    --brown: #7c593a;
+    --lightBrown: #e4ddd7; 
 }
 *{
     margin: 0;
@@ -30,12 +31,15 @@
     margin-bottom: 10px;
 }
 .earthy{
-    background-color: var(--brown);
-    color: var(--light);
+    background-color: var(--darkBrown);
+    color: var(--lightBrown);
 }
 .lightEarthy{
+    background-color: var(--brown);
+    color: var(--lightBrown);
+}
+.brightEarthy{
     background-color: var(--lightBrown);
-    color: var(--light);
 }
 .box{
     width: 300px;
