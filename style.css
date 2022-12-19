@@ -1,12 +1,14 @@
 :root {
     --green: #55873e;
+    --lightGreen: #80b468;
+    --darkGreen: #29471c;
     --dark: #17191D;
     --light: #f4f4f4;
-    --lightGreen: #93c47d;
+    --brown: #5e422a;
+    --lightBrown: #7c593a;
 }
-* {
+*{
     margin: 0;
-    margin-left: 3;
 }
 .meadowBack {
     background-color: var(--lightGreen);
@@ -18,14 +20,25 @@
     margin-right: 30;
 }
 .button{
-    color: var(--green);
     margin: 5px;
 }
 .forest {
     color: var(--green);
 }
 .subHeader {
-    color: var(--green);
     font-size: 13px;
     margin-bottom: 10px;
 }
+.earthy{
+    background-color: var(--brown);
+    color: var(--light);
+}
+.lightEarthy{
+    background-color: var(--lightBrown);
+    color: var(--light);
+}
+.box{
+    width: 300px;
+    margin-left: 3px;
+}
+
