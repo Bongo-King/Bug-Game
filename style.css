@@ -45,9 +45,8 @@
     width: 300px;
     margin-left: 3px;
 }
-.wrapper{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 
+.container{
+    display: grid;
+    grid-template-columns: auto auto;
+}
