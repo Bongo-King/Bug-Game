@@ -1,12 +1,13 @@
 :root {
     --green: #55873e;
     --lightGreen: #80b468;
-    --darkGreen: #29471c;
-    --dark: #17191D;
+    --darkGreen: #276648;
+    --dark: #2c2d26;
     --light: #f4f4f4;
     --darkBrown: #5e422a;
-    --brown: #7c593a;
+    --brown: #7d5a3b;
     --lightBrown: #e4ddd7; 
+    --olivine: #89B26A;
 }
 *{
     margin: 0;
@@ -50,6 +51,7 @@
     display: grid;
     grid-template-rows: auto 1fr;
     height: 100%;
+    background-color: var(--dark);
 }
 body{
     height: 100%;
@@ -68,6 +70,9 @@ body{
 }
 .bugMenu{
     overflow-y: scroll;
-    background-color:#29471c;
+    background-color: var(--darkGreen);
     margin-bottom: 1em;
+}
+.totalBugTracker{
+    overflow-wrap: unset;
 }
