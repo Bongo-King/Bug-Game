@@ -13,7 +13,6 @@
             <h2> <img src="https://i.postimg.cc/8PbbfJJ6/bug-nest-img.gif" height="210px" width="210px"></h2>
             <div>
                 <h2>Number of Bugs: <span id="bugs">0</span><br></h2>
-                <h5>Max Bugs: <span id="maxBugs">100</span></h5>
             </div>
         </div>
 
@@ -23,50 +22,51 @@
                 <div>
                     <h3 class="forest margin"><u>Resources:</u></h3>
                     <p class="subHeader forest">
-                        Food: <span id="numFood">20</span> (Max: <span id="maxFood">20</span>) | Sticks: <span
-                            id="numSticks">3</span> (Max: <span id="maxSticks">20</span>)
+                        Food: <span id="numFood">20</span> | Sticks: <span id="numSticks">3</span>
                     </p>
+                    <button class="forest button" type="button" onclick="buttonAdder(1)">
+                        +1 Bug &nbsp;[Cost: <span id="bugCost">1</span> Food]
+                    </button><br><br>
                     <p class="forest">
                         Food/sec Consumed: <span id="foodConRate">0</span>
                         <br> Food/sec Produced: <span id="foodProRate">0</span>
                         <br> Sticks/sec Produced: <span id="stickProRate">0</span>
                     </p>
-                    <button class="forest button" type="button" onclick="buttonAdder(1)">
-                        +1 Bug &nbsp;[Cost: <span id="bugCost">1</span> Food]
-                    </button><br>
                 </div>
                 <!-- Nest Construction Menu -->
                 <div class="lightEarthy" style="border: 1px solid #17191D;">
                     <h3 class="earthy" style="padding-bottom:3px;  color: var(--light);"><u>Nest Construction:</u></h3>
                     <p class="subHeader" style=" color: var(--light);">Nest Progress: <span id="nestProg">0</span>%</p>
                     <h4 class="earthy">Food Storage Sections: <span id="foodSto">1</span></h4>
-                    <button class="brightEarthy button" type="button" onclick="makeFoodSto(1)">
-                        <span id="foodStoCost">10</span> sticks
-                    </button><br>
-                    <button class="brightEarthy button" type="button" onclick="adder(1)">
-                        Deconstruct
-                    </button>
+                    <h5 class="earthy">(Max Food: <span id="maxFood">20</span>)</h5>
+                    <h5>
+                        Construct:
+                        <button class="brightEarthy button" type="button" onclick="makeFoodSto(1)">
+                            <span id="foodStoCost">10</span> sticks
+                        </button>
+                    </h5>
                     <h4 class="earthy">Stick Storage Sections: <span id="stickSto">1</span></h4>
-                    <button class="brightEarthy button" type="button" onclick="makeStickSto(1)">
-                        <span id="stickStoCost">10</span> sticks
-                    </button> <br>
-                    <button class="brightEarthy button" type="button" onclick="adder(1)">
-                        Deconstruct
-                    </button>
-                    <h4 class="earthy">Hive Space: <span id="hiveSpace">1</span></h4>
-                    <button class="brightEarthy button" type="button" onclick="makeHiveSpace(1)">
-                        <span id="hiveSpaceCost">50</span> sticks
-                    </button> <br>
-                    <button class="brightEarthy button" type="button" onclick="adder(1)">
-                        Deconstruct
-                    </button>
-                    <h4 class="earthy">Nurseries: <span id="nurseries">0</span></h4>
-                    <button class="brightEarthy button" type="button" onclick="makeNursery(1)">
-                        <span id="nurseryCost">30</span> sticks
-                    </button><br>
-                    <button class="brightEarthy button" type="button" onclick="adder(1)">
-                        Deconstruct
-                    </button>
+                    <h5 class="earthy">(Max Sticks: <span id="maxSticks">20</span>)</h5>
+                    <h5>
+                        Construct:
+                        <button class="brightEarthy button" type="button" onclick="makeStickSto(1)">
+                            <span id="stickStoCost">10</span> sticks
+                        </button>
+                    </h5>
+                    <h4 class="earthy">Nest Expansions: <span id="hiveSpace">1</span></h4>
+                    <h5 class="earthy"> (Max Bugs: <span id="maxBugs">100</span>)</h5>
+                    <h5>
+                        Construct:
+                        <button class="brightEarthy button" type="button" onclick="makeHiveSpace(1)"><span id="hiveSpaceCost">50</span> sticks
+                        </button> 
+                    </h5>
+                    <h4 class="earthy">Spawning Rooms: <span id="nurseries">0</span></h4>
+                    <h5>
+                        Construct:
+                        <button class="brightEarthy button" type="button" onclick="makeNursery(1)">
+                            <span id="nurseryCost">30</span> sticks
+                        </button>
+                    </h5>
                 </div>
             </div>
 
