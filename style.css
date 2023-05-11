@@ -1,31 +1,27 @@
 :root {
     --green: #55873e;
-    --lightGreen: #80b468;
     --darkGreen: #276648;
-    --dark: #2c2d26;
-    --light: #f4f4f4;
+    --darkestGreen: #1e5035;
+    
+    --deepGreen: #2c2d26;
+
     --darkBrown: #5e422a;
     --brown: #7d5a3b;
     --lightBrown: #e4ddd7; 
-    --olivine: #89B26A;
+
+  
 }
 *{
     margin: 0;
-}
-.meadowBack {
-    background-color: var(--lightGreen);
-    margin-right: 20;
-}
-.header {
-    background-color: var(--green);
-    color: var(--light);
-    margin-right: 30;
 }
 .button{
     margin: 5px;
 }
 .forest {
     color: var(--green);
+}
+.darkestGreen{
+    background-color: var(--darkestGreen);
 }
 .subHeader {
     font-size: 13px;
@@ -51,7 +47,7 @@
     display: grid;
     grid-template-rows: auto 1fr;
     height: 100%;
-    background-color: var(--dark);
+    background-color: var(--deepGreen);
 }
 body{
     height: 100%;
@@ -69,10 +65,22 @@ body{
     margin-bottom: 1em;
 }
 .bugMenu{
+    display:grid;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+    grid-template-columns: 2fr 1fr;
     overflow-y: scroll;
     background-color: var(--darkGreen);
     margin-bottom: 1em;
 }
 .totalBugTracker{
     overflow-wrap: unset;
+}
+.selectorImage{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+}
+.selectorText{
+    text-align:center;
 }
